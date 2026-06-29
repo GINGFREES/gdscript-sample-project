@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bns1k88lyixct"]
+
+[ext_resource type="Script" uid="uid://dg57t8bh77vc2" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cnp3oinhxw6er" path="res://clock.tscn" id="2_0xm2m"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0xm2m"]
+
+[node name="Main" type="Node2D" unique_id=767067411]
+script = ExtResource("1_ig7tw")
+clock_scene = ExtResource("2_0xm2m")
+
+[node name="Bottom" type="Area2D" parent="." unique_id=664236777]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom" unique_id=1928420339]
+shape = SubResource("WorldBoundaryShape2D_0xm2m")
