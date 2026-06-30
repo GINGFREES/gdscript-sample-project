@@ -5,11 +5,28 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0xm2m"]
 
-[node name="Main" type="Node2D" unique_id=767067411]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(1, 1)
+
+[node name="Main" type="Node2D" unique_id=767067411 node_paths=PackedStringArray("bottom", "ground")]
 script = ExtResource("1_ig7tw")
 clock_scene = ExtResource("2_0xm2m")
+bottom = NodePath("Bottom")
+ground = NodePath("Ground")
 
 [node name="Bottom" type="Area2D" parent="." unique_id=664236777]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom" unique_id=1928420339]
 shape = SubResource("WorldBoundaryShape2D_0xm2m")
+
+[node name="Ground" type="StaticBody2D" parent="." unique_id=1575212649]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=1110182433]
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1101530016]
+wait_time = 0.2
+autostart = true
+
+[connection signal="body_entered" from="Bottom" to="." method="_on_bottom_body_entered"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
