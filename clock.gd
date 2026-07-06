@@ -44,6 +44,7 @@ func _ready() -> void:
 			)
 		if start_time != StartTimeMode.SYSTEM_TIME:
 			totalSeconds = start_second + start_minute * 60 + start_hour * 3600
+	#visualization.self_modulate = Color.from_hsv(randf(), randf_range(0.0, 0.5), 1.0)
 	pass # Replace with function body.
 
 
@@ -51,4 +52,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	totalSeconds += delta * time_scale
 	update_time()
+	var s := fmod(totalSeconds, 60.0) / 60.0
+	visualization.self_modulate = Color.from_hsv(s, 0.25, 1.0)
 	pass

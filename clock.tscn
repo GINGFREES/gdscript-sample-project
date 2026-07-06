@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://cnp3oinhxw6er"]
 
 [ext_resource type="Script" uid="uid://dsye328kq8q8b" path="res://clock.gd" id="1_venu5"]
+[ext_resource type="Shader" uid="uid://7tvudyo0qsks" path="res://clock.gdshader" id="2_kig64"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_venu5"]
 bounce = 0.25
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_venu5"]
 radius = 128.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4n1wf"]
+shader = ExtResource("2_kig64")
 
 [sub_resource type="Gradient" id="Gradient_5rrw5"]
 offsets = PackedFloat32Array(0.98, 1)
@@ -23,6 +27,7 @@ fill_to = Vector2(1, 0.5)
 [node name="Clock" type="RigidBody2D" unique_id=540396598 node_paths=PackedStringArray("collision_shape", "visualization", "second_arm", "minute_arm", "hour_arm")]
 position = Vector2(576, 324)
 physics_material_override = SubResource("PhysicsMaterial_venu5")
+gravity_scale = 0.0
 script = ExtResource("1_venu5")
 collision_shape = NodePath("CollisionShape2D")
 visualization = NodePath("Visualization")
@@ -34,6 +39,7 @@ hour_arm = NodePath("Visualization/HourArm")
 shape = SubResource("CircleShape2D_venu5")
 
 [node name="Visualization" type="Sprite2D" parent="." unique_id=1966370626]
+material = SubResource("ShaderMaterial_4n1wf")
 texture = SubResource("GradientTexture2D_venu5")
 
 [node name="Hour0" type="Polygon2D" parent="Visualization" unique_id=53970067]
