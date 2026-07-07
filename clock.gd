@@ -53,5 +53,5 @@ func _process(delta: float) -> void:
 	totalSeconds += delta * time_scale
 	update_time()
 	var s := fmod(totalSeconds, 60.0) / 60.0
-	visualization.self_modulate = Color.from_hsv(s, 0.25, 1.0)
+	visualization.self_modulate = Color(s, 0.25, 1.0)
 	pass
