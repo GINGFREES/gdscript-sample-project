@@ -3,7 +3,7 @@ shader_type canvas_item;
 const float SMOOTHING = 1.5;
 const float RING_THICKNESS = 0.1;
 
-varying float clock_data;
+varying vec3 clock_data;
 
 float smooth_above(float threshold, float value){
 	return smoothstep(threshold, threshold + fwidth(SMOOTHING * value), value);
@@ -20,8 +20,12 @@ float get_ring_weight(float start_radius, float radius){
 	);
 }
 
+vec3 add_ring(vec3 color, vec3 ring_color, float start_radius, float radius){
+	return mix(color, ring_color, get_ring_weight(start_radius, radius));
+}
+
 void vertex(){
-	clock_data = COLOR.r;
+	clock_data = COLOR.rgb;
 }
 
 void fragment(){
@@ -30,8 +34,11 @@ void fragment(){
 	COLOR = vec4(1.0);
 	//float mixer = smoothstep(0.5, 0.6, radius);
 	//float mixer = smoothstep(0.5, 0.5 + fwidth(1.5 * radius), radius);
-	float mixer = get_ring_weight(clock_data, radius);
-	COLOR.rgb = mix(COLOR.rgb, vec3(0.0, 0.5, 0.0), mixer);
+	//float mixer = get_ring_weight(clock_data, radius);
+	//COLOR.rgb = mix(COLOR.rgb, vec3(0.0, 0.5, 0.0), mixer);
+	COLOR.rgb = add_ring(COLOR.rgb, vec3(0.5, 0.0, 0.0), clock_data.x, radius);
+	COLOR.rgb = add_ring(COLOR.rgb, vec3(0.0, 0.5, 0.0), clock_data.y, radius);
+	COLOR.rgb = add_ring(COLOR.rgb, vec3(0.0, 0.0, 0.5), clock_data.z, radius);
 	COLOR.a = smooth_below(1.0, radius);
 	//COLOR.rgb *= radius;
 }
