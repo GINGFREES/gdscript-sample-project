@@ -26,5 +26,6 @@ void fragment(){
 	//float mixer = smoothstep(0.5, 0.5 + fwidth(1.5 * radius), radius);
 	float mixer = get_ring_weight(0.5, radius);
 	COLOR.rgb = mix(COLOR.rgb, vec3(0.0, 0.5, 0.0), mixer);
+	COLOR.a = smooth_below(1.0, radius);
 	//COLOR.rgb *= radius;
 }
