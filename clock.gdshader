@@ -35,7 +35,8 @@ void vertex(){
 void fragment(){
 	//COLOR.rgb = vec3(step(smoothstep(0.0,1.0, UV.x), UV.y));
 	float radius = 2.0 * distance(UV, vec2(0.5));
-	COLOR = vec4(1.0);
+	//COLOR.rgb = texture(TEXTURE, UV).rgb;
+	COLOR.rgb = texture(TEXTURE, 1.0 - UV).rgb;
 	//float mixer = smoothstep(0.5, 0.6, radius);
 	//float mixer = smoothstep(0.5, 0.5 + fwidth(1.5 * radius), radius);
 	//float mixer = get_ring_weight(clock_data, radius);
