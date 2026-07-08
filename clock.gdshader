@@ -1,5 +1,9 @@
 shader_type canvas_item;
 
+uniform vec3 second_color : source_color = vec3(0.5, 0.0, 0.0);
+uniform vec3 minute_color : source_color = vec3(0.0, 0.5, 0.0);
+uniform vec3 hour_color : source_color = vec3(0.0, 0.0, 0.5);
+
 const float SMOOTHING = 1.5;
 const float RING_THICKNESS = 0.1;
 
@@ -36,9 +40,9 @@ void fragment(){
 	//float mixer = smoothstep(0.5, 0.5 + fwidth(1.5 * radius), radius);
 	//float mixer = get_ring_weight(clock_data, radius);
 	//COLOR.rgb = mix(COLOR.rgb, vec3(0.0, 0.5, 0.0), mixer);
-	COLOR.rgb = add_ring(COLOR.rgb, vec3(0.5, 0.0, 0.0), clock_data.x, radius);
-	COLOR.rgb = add_ring(COLOR.rgb, vec3(0.0, 0.5, 0.0), clock_data.y, radius);
-	COLOR.rgb = add_ring(COLOR.rgb, vec3(0.0, 0.0, 0.5), clock_data.z, radius);
+	COLOR.rgb = add_ring(COLOR.rgb, second_color, clock_data.x, radius);
+	COLOR.rgb = add_ring(COLOR.rgb, minute_color, clock_data.y, radius);
+	COLOR.rgb = add_ring(COLOR.rgb, hour_color, clock_data.z, radius);
 	COLOR.a = smooth_below(1.0, radius);
 	//COLOR.rgb *= radius;
 }
