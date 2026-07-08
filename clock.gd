@@ -32,7 +32,7 @@ func update_time() -> void:
 	minute_arm.rotation = m * TAU
 	hour_arm.rotation =  h * TAU
 	
-	visualization.self_modulate = Color(s, m, h)
+	visualization.self_modulate = Color(s, m, h, visualization.self_modulate.a)
 	
 	pass # Replace with function body.
 
@@ -51,6 +51,7 @@ func _ready() -> void:
 		if start_time != StartTimeMode.SYSTEM_TIME:
 			totalSeconds = start_second + start_minute * 60 + start_hour * 3600
 	#visualization.self_modulate = Color.from_hsv(randf(), randf_range(0.0, 0.5), 1.0)
+	visualization.self_modulate.a = randf()
 	pass # Replace with function body.
 
 

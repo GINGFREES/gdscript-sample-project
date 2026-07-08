@@ -7,7 +7,7 @@ uniform vec3 hour_color : source_color = vec3(0.0, 0.0, 0.5);
 const float SMOOTHING = 1.5;
 const float RING_THICKNESS = 0.1;
 
-varying vec3 clock_data;
+varying vec4 clock_data;
 
 float smooth_above(float threshold, float value){
 	return smoothstep(threshold, threshold + fwidth(SMOOTHING * value), value);
@@ -29,14 +29,20 @@ vec3 add_ring(vec3 color, vec3 ring_color, float start_radius, float radius){
 }
 
 void vertex(){
-	clock_data = COLOR.rgb;
+	clock_data = COLOR;
 }
 
 void fragment(){
 	//COLOR.rgb = vec3(step(smoothstep(0.0,1.0, UV.x), UV.y));
 	float radius = 2.0 * distance(UV, vec2(0.5));
+	float choice = clock_data.w;
 	//COLOR.rgb = texture(TEXTURE, UV).rgb;
-	COLOR.rgb = texture(TEXTURE, 1.0 - UV).rgb;
+	COLOR.rgb = texture(TEXTURE, 
+		vec2(
+			choice > 0.5 ? UV.x : 1.0 - UV.x,
+			choice < 0.25 || choice > 0.75 ? UV.y : 1.0 - UV.y
+		)
+	).rgb;
 	//float mixer = smoothstep(0.5, 0.6, radius);
 	//float mixer = smoothstep(0.5, 0.5 + fwidth(1.5 * radius), radius);
 	//float mixer = get_ring_weight(clock_data, radius);
